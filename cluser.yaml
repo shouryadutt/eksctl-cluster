@@ -1,0 +1,32 @@
+# A cluster with one managed nodegroups
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: realtime-project
+  region: us-west-2
+  version: '1.28'
+iam:
+  withOIDC: true
+
+
+managedNodeGroups:
+  - name: realtime-project-ng
+    instanceType: t2.medium
+    minSize: 2
+    maxSize: 2
+    desiredCapacity: 2
+    volumeSize: 30
+    # ssh:
+    #   allow: true
+    #   publicKeyPath: ~/.ssh/id_rsa.pub
+      # new feature for restricting SSH access to certain AWS security group IDs
+      # sourceSecurityGroupIds: ["sg-0c50eca54902fa991"]
+    labels: {role: worker}
+    tags:
+      nodegroup-role: worker
+    iam:
+      withAddonPolicies:
+        externalDNS: true
+        certManager: true
