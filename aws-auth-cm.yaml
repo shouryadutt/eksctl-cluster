@@ -1,0 +1,10 @@
+data:
+  mapUsers: |
+    - userarn: arn:aws:iam::891376912626:user/K8user
+      username: K8user
+      groups:
+        - system:masters
+    - userarn: arn:aws:iam::891376912626:user/Js-bak
+      username: Js-bak
+      groups:
+        - system:masters
