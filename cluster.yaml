@@ -8,6 +8,8 @@ metadata:
   region: eu-north-1
   version: '1.28'
 
+availabilityZones: ["eu-north-1a", "eu-north-1b"]
+
 iam:
   withOIDC: true
 
