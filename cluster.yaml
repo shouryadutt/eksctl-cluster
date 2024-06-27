@@ -1,17 +1,15 @@
-# Configuration for a cluster with one managed node group
+# A cluster with one managed nodegroups
 ---
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
   name: realtime-project
-  region: eu-north-1
+  region: us-west-2
   version: '1.28'
-
-availabilityZones: ["eu-north-1a", "eu-north-1b"]
-
 iam:
   withOIDC: true
+
 
 managedNodeGroups:
   - name: realtime-project-ng
@@ -20,14 +18,12 @@ managedNodeGroups:
     maxSize: 2
     desiredCapacity: 2
     volumeSize: 30
-    # Uncomment the following lines to enable SSH access
     # ssh:
     #   allow: true
     #   publicKeyPath: ~/.ssh/id_rsa.pub
-    #   Restrict SSH access to specific AWS security group IDs
-    #   sourceSecurityGroupIds: ["sg-0c50eca54902fa991"]
-    labels:
-      role: worker
+      # new feature for restricting SSH access to certain AWS security group IDs
+      # sourceSecurityGroupIds: ["sg-0c50eca54902fa991"]
+    labels: {role: worker}
     tags:
       nodegroup-role: worker
     iam:
