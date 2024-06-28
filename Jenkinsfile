@@ -2,10 +2,22 @@ pipeline {
     agent any
 
     stages {
+        stage('Checking the Config') {
+            steps {
+                sh "eksctl create cluster --config-file=cluster.yaml --dry-run"
+            }
+        }
         stage('Creating Cluster') {
             steps {
-                echo "Creating Cluster"
-                sh "eksctl create cluster --config-file=cluster.yaml"
+                script {
+                    def clusterExists = sh(script: 'aws eks describe-cluster --name realtime-project --region us-west-2', returnStatus: true) == 0
+                    if (clusterExists) {
+                        echo "Cluster Already Exists"  
+                    } else {
+                        echo "Creating Cluster"
+                        sh "eksctl create cluster --config-file=cluster.yaml"
+                    }
+                }
             }
         }
     }
