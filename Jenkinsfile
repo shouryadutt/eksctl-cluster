@@ -10,7 +10,7 @@ pipeline {
         stage('Creating Cluster') {
             steps {
                 script {
-                    def clusterExists = sh(script: 'aws eks describe-cluster --name realtime-project --region us-west-2', returnStatus: true) == 0
+                    def clusterExists = sh(script: 'aws eks describe-cluster --name realtime-project --region eu-north-1', returnStatus: true) == 0
                     if (clusterExists) {
                         echo "Cluster Already Exists"  
                     } else {
