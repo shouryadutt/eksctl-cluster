@@ -1,6 +1,0 @@
-data:
-  mapUsers: |
-    - userarn: arn:aws:iam::590183931017:user/k8s-admin
-      username: k8s-admin
-      groups:
-        - system:masters
