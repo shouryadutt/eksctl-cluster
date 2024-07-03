@@ -4,3 +4,9 @@ data:
       username: k8s-admin
       groups:
         - system:masters
+    - userarn: arn:aws:iam::590183931017:user/eks-nodes-user
+      username: eks-nodes-user
+      groups:
+        - system:masters
+        - system:nodes
+        - eks-console-dashboard-full-access-binding
