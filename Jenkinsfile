@@ -28,7 +28,7 @@ pipeline {
         }
         stage('Apply ClusterRole and ClusterRoleBinding') {
             steps {
-                sh 'kubectl apply -f cluster-role.yaml'
+                sh 'kubectl apply -f cluster-role.yml'
             }
         }
         stage('Update AWS AUTH Config') {
