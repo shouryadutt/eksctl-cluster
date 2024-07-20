@@ -11,7 +11,7 @@ pipeline {
         stage('Creating Cluster') {
             steps {
                 script {
-                    def clusterExists = sh(script: 'aws eks describe-cluster --cluster-name realtime-project --region us-west-2', returnStatus: true) == 0
+                    def clusterExists = sh(script: 'aws eks describe-cluster --cluster-name realtime-project --region us-west-2', returnStatus: true) != 0
                     if (clusterExists){
                         echo "Cluster Already Exists"  
                     } else {
@@ -39,7 +39,7 @@ pipeline {
         stage('Verify ArgoCD Namespace') {
             steps {
                 script {
-                    def nsExists = sh(script: "kubectl get namespace argocd --ignore-not-found", returnStatus: true) == 0
+                    def nsExists = sh(script: "kubectl get namespace argocd --ignore-not-found", returnStatus: true) != 0
                     if (!nsExists) {
                         sh 'kubectl create namespace argocd'
                     } else {
@@ -52,7 +52,7 @@ pipeline {
         stage('Install ArgoCD') {
             steps {
                 script {
-                    def argocdInstalled = sh(script: "kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server --ignore-not-found", returnStatus: true) == 0
+                    def argocdInstalled = sh(script: "kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server --ignore-not-found", returnStatus: true) != 0
                     if (!argocdInstalled) {
                         sh '''
                             kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
